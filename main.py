@@ -16,12 +16,13 @@ class MyClient(botpy.Client):
     async def on_ready(self):
         _log.info(f"robot 「{self.robot.name}」 on_ready!")
 
+
     async def on_group_at_message_create(self, message: GroupMessage):
         messageResult = await message._api.post_group_message(
             group_openid=message.group_openid,
-              msg_type=0, 
+              msg_type=0,
               msg_id=message.id,
-              content=f"你说的对 无敌墨寒是这样的")
+              content=f"你说的对 无敌墨寒{message.author}是这样的")
         _log.info(messageResult)
 
 
