@@ -1,0 +1,4 @@
+appid: "102119078"
+secret: "aAkKuV6hItU5hJvX9lO1eHuXAoS6kO2g"
+
+service_host: "http://localhost:8080/xiaohan/v1/action?"
