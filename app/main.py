@@ -25,16 +25,15 @@ class MyClient(botpy.Client):
         if content not in action_list:
             # 指令无效
             return
-        if content == "踏入仙途":
-            response = requests.get(
-                f'{test_config["service_host"]}member_id={message.author.member_openid}&action={message.content}')
+        response = requests.get(
+            f'{test_config["service_host"]}member_id={message.author.member_openid}&action={message.content}')
 
-            if response.status_code == 200:
-                messageResult = await message.api.post_group_message(
-                    group_openid=message.group_openid,
-                    msg_id=message.id,
-                    content=response.text.strip('"'))
-                log.info(messageResult)
+        if response.status_code == 200:
+            messageResult = await message.api.post_group_message(
+                group_openid=message.group_openid,
+                msg_id=message.id,
+                content=response.text.strip('"'))
+            log.info(messageResult)
 
 
 if __name__ == "__main__":
