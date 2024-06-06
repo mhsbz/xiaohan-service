@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-import asyncio
 import os
 
 import botpy
 from botpy import logging
 from botpy.ext.cog_yaml import read
 from botpy.message import GroupMessage, Message
+from services.user import new_user
 
 test_config = read(os.path.join(os.path.dirname(__file__), "config.yaml"))
 
@@ -16,14 +16,16 @@ class MyClient(botpy.Client):
     async def on_ready(self):
         _log.info(f"robot 「{self.robot.name}」 on_ready!")
 
-
     async def on_group_at_message_create(self, message: GroupMessage):
-        messageResult = await message._api.post_group_message(
-            group_openid=message.group_openid,
-              msg_type=0,
-              msg_id=message.id,
-              content=f"你说的对 无敌墨寒{message.author}是这样的")
-        _log.info(messageResult)
+
+        if message.content == "/踏入仙途" or message.content == "踏入仙途":
+            user = new_user(message.author.member_openid)
+            messageResult = await message._api.post_group_message(
+                group_openid=message.group_openid,
+                msg_type=0,
+                msg_id=message.id,
+                content=f"{vars(user)}")
+            _log.info(messageResult)
 
 
 if __name__ == "__main__":
