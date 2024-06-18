@@ -32,7 +32,7 @@ class MyClient(botpy.Client):
             messageResult = await message.api.post_group_message(
                 group_openid=message.group_openid,
                 msg_id=message.id,
-                content=response.text.strip('"'))
+                content=response.text.replace('"',''))
             log.info(messageResult)
 
 
