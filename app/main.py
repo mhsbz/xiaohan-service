@@ -12,7 +12,7 @@ test_config = read(os.path.join(os.path.dirname(__file__), "config.yaml"))
 log = logging.get_logger()
 
 action_list = [
-    "开始赛博修仙", "打坐", "我的修仙信息"
+    "踏入仙途", "领取内测专属奖励", "我的修仙信息", "修炼", "我要修仙", "",
 ]
 
 
