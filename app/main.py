@@ -22,16 +22,13 @@ class MyClient(botpy.Client):
         log.info(f"robot 「{self.robot.name}」 on_ready!")
 
     async def on_group_at_message_create(self, message: GroupMessage):
-        content = message.content.strip().lstrip("/").rstrip("/")
-        if content not in action_list:
-            # 指令无效
-            return
         response = requests.get(
             f'{test_config["service_host"]}member_id={message.author.member_openid}&action={message.content}')
 
         if response.status_code == 200:
             resp = response.text.replace('"', '').replace(r'\n', '\n')
-
+            if resp == "":
+                return
             messageResult = await message._api.post_group_message(
                 group_openid=message.group_openid,
                 msg_id=message.id,
