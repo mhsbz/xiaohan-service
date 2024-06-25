@@ -12,8 +12,8 @@ test_config = read(os.path.join(os.path.dirname(__file__), "config.yaml"))
 log = logging.get_logger()
 
 action_list = [
-    "加入异世界修仙","加入修仙界","加入异世界","术修","剑修","魔法","剑士","生成角色","领取内测专属奖励","","修炼","闭关","签到",
-"进入迷宫"
+    "加入异世界修仙", "加入修仙界", "加入异世界", "术修", "剑修", "魔法", "剑士", "生成角色", "领取内测专属奖励", "",
+    "修炼", "闭关", "签到", "战斗相关", "进入迷宫"
 ]
 
 
@@ -30,10 +30,12 @@ class MyClient(botpy.Client):
             f'{test_config["service_host"]}member_id={message.author.member_openid}&action={message.content}')
 
         if response.status_code == 200:
+            resp = response.text.replace('"', '').replace(r'\n', '\n')
+
             messageResult = await message._api.post_group_message(
                 group_openid=message.group_openid,
                 msg_id=message.id,
-                content=response.text.replace('"',''))
+                content=resp)
             log.info(messageResult)
 
 
